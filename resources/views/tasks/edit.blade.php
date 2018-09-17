@@ -25,9 +25,8 @@
             <input type="text" class="form-control" name="duration" value="{{$task->duration}}">
             <label for="Status">Status:</label><br>
             <select name="status">
-              <option value="Finished">Finished</option>
-              <option value="Inactive">Inactive</option>
-              <option value="Active">Active</option>
+              <option value="Completed">Completed</option>
+              <option value="Awaiting completion">Awaiting completion</option>
             </select>
           </div>
         </div>

@@ -8,6 +8,14 @@
         <p>{{ \Session::get('success') }}</p>
       </div><br />
     @endif
+    <p>Filter op status</p>
+    <select id="statusFilter" onchange="FilterTasks('statusFilter', '1');">
+      <option value="" selected="selected"></option>
+      <option value="Completed">Completed</option>
+      <option value="Awaiting completion">Awaiting completion</option>
+    </select>
+    <p>Filter op duur</p>
+    <input type="text" id="durationFilter" onkeyup="FilterTasks('durationFilter', '2');">
     <table id="table" class="table table-striped">
     <thead>
       <tr>
@@ -42,6 +50,5 @@
     </table>
     <a href="{{ route('tasks.create', [$id]) }}">Add new task</a></th>
   </div>
-  <script type="text/javascript" src="{{ URL::asset('js/sort.js') }}"></script>
-
+<script type="text/javascript" src="{{ URL::asset('js/javascript.js') }}"></script>
 @endsection
