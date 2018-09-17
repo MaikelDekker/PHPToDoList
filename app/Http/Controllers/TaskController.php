@@ -18,11 +18,18 @@ class TaskController extends Controller
     }
     public function store(Request $request)
     {
-       $task= new \App\Task;
-       $task->description=$request->get('description');
-       $task->list_id=$request->get('list_id');
-       $task->save();
-       return redirect()->route('todolists.show', [$task->list_id]);
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'status' => 'required',
+            'duration' => 'required',
+        ]);
+        $task= new \App\Task;
+        $task->list_id=$request->get('list_id');
+        $task->title=$request->get('title');
+        $task->status=$request->get('status');
+        $task->duration=$request->get('duration');
+        $task->save();
+        return redirect()->route('todolists.show', [$task->list_id]);
     }
     public function show($id)
     {
@@ -35,9 +42,16 @@ class TaskController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'status' => 'required',
+            'duration' => 'required',
+        ]);
         $task= \App\Task::find($id);
-        $task->description=$request->get('description');
         $task->list_id=$request->get('list_id');
+        $task->title=$request->get('title');
+        $task->status=$request->get('status');
+        $task->duration=$request->get('duration');
         $task->save();
         return redirect()->route('todolists.show', [$task->list_id]);
     }

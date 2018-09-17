@@ -5,6 +5,15 @@
     <h2>Edit A Form</h2><br  />
       <form method="post" action="{{action('ToDoListController@update', $id)}}">
       @csrf
+      @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
       <input name="_method" type="hidden" value="PATCH">
       <div class="row">
         <div class="col-md-4"></div>

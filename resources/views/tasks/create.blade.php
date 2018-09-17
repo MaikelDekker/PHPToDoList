@@ -5,13 +5,29 @@
       <h2>Task adder</h2><br/>
       <form method="post" action="{{url('tasks')}}" enctype="multipart/form-data">
         @csrf
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row">
           <div class="col-md-4"></div>
             <div class="form-group col-md-4">
-              <label for="Description">Description:</label>
-              <input type="text" class="form-control" name="description">
-              <label for="Description">list_id:</label>
-              <input type="text" class="form-control" name="list_id" value="{{$id}}">
+              <input type="hidden" class="form-control" name="list_id" value="{{$id}}">
+              <label for="Title">Title:</label>
+              <input type="text" class="form-control" name="title">
+              <label for="Duration">Duration:</label>
+              <input type="text" class="form-control" name="duration">
+              <label for="Status">Status:</label><br>
+              <select name="status">
+                <option value="Finished">Finished</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Active">Active</option>
+              </select>
             </div>
           </div>
         <div class="row">

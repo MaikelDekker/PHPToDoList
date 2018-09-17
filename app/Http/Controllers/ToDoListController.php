@@ -17,16 +17,22 @@ class ToDoListController extends Controller
     }
     public function store(Request $request)
     {
-       $todolist= new \App\ToDoList;
-       $todolist->title=$request->get('title');
-       $todolist->description=$request->get('description');
-       $todolist->save();       
-       return redirect()->route('todolists.index');
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        $todolist= new \App\ToDoList;
+        $todolist->title=$request->get('title');
+        $todolist->description=$request->get('description');
+        $todolist->save();       
+        return redirect()->route('todolists.index');
     }
     public function show($id)
     {
         $todolist = \App\ToDoList::find($id);
-        $tasks = \App\Task::where('list_id', $id)->get();
+
+        $tasks = \App\Task::where('list_id', $id)->orderBy('created_at')->get();
+
         return view('toDoLists.show',compact('todolist', 'tasks', 'id'));
     }
     public function edit($id)
@@ -36,6 +42,10 @@ class ToDoListController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
         $todolist= \App\ToDoList::find($id);
         $todolist->title=$request->get('title');
         $todolist->description=$request->get('description');
@@ -45,6 +55,9 @@ class ToDoListController extends Controller
     public function destroy($id)
     {
         $todolist = \App\ToDoList::find($id);
+        $tasks = \App\Task::where('list_id', $id);
+
+        $tasks->delete();
         $todolist->delete();
         return redirect()->route('todolists.index');
     }
