@@ -9,21 +9,19 @@
       </div><br />
     @endif
     <p>Filter op status</p>
-    <select id="statusFilter" onchange="FilterTasks('statusFilter', '1');">
+    <select id="statusFilter" onchange="FilterTasks('statusFilter', '2');">
       <option value="" selected="selected"></option>
       <option value="Completed">Completed</option>
       <option value="Awaiting completion">Awaiting completion</option>
     </select>
     <p>Filter op duur</p>
-    <input type="text" id="durationFilter" onkeyup="FilterTasks('durationFilter', '2');">
+    <input type="text" id="durationFilter" onkeyup="FilterTasks('durationFilter', '1');">
     <table id="table" class="table table-striped">
     <thead>
       <tr>
-        <!-- <th>ID</th>
-        <th>List_ID</th> -->
         <th onclick="Sort(0)">Title</th>
-        <th onclick="Sort(1)">Status</th>
         <th>Duration</th>
+        <th onclick="Sort(2)">Status</th>
         <th colspan="2">Action</th>
       </tr>
     </thead>
@@ -31,11 +29,9 @@
         
           @foreach($tasks as $task)
           <tr>
-            <!-- <td>{{$task['id']}}</td>
-            <td>{{$task['list_id']}}</td> -->
             <td>{{$task['title']}}</td>
-            <td>{{$task['status']}}</td>
             <td>{{$task['duration']}}</td>
+            <td>{{$task['status']}}</td>
             <td><a href="{{action('TaskController@edit', $task['id'])}}" class="btn btn-warning">Edit</a></td>
             <td>
               <form action="{{action('TaskController@destroy', $task['id'])}}" method="post">

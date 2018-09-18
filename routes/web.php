@@ -20,14 +20,9 @@ Auth::routes();
 Route::resource('todolists', 'ToDoListController');
 Route::resource('tasks', 'TaskController');
 
-
 Route::get('todolists/{id}', 'ToDoListController@show');
 
-Route::get('tasks/create/{id}', [
-    'uses' => 'TaskController@create',
-    'as'   => 'tasks.create'
-]);
-
+Route::get('tasks/create/{id}', 'TaskController@create')->name('tasks.create');
 Route::get('tasks/', 'TaskController@index')->name('tasks.index');
 Route::get('tasks/edit/{id}', 'TaskController@edit')->name('tasks.edit');
 Route::get('tasks/store', 'TaskController@store')->name('tasks.store');

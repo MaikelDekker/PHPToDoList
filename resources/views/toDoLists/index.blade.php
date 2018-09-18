@@ -8,37 +8,41 @@
         <p>{{ \Session::get('success') }}</p>
       </div><br />
     @endif
-    <h1 id="title"></h1>
-    <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th colspan="3">Action</th>
-      </tr>
-    </thead>
-      <tbody>
-        
+    <div id="lists">
+      <tbody>        
           @foreach($todolists as $todolist)
-          <tr>
-            <td>{{$todolist['id']}}</td>
-            <td>{{$todolist['title']}}</td>
-            <td>{{$todolist['description']}}</td>
-            
-            <td><a href="{{action('ToDoListController@show', $todolist['id'])}}" class="btn btn-warning">Show</a></td>
-            <td><a href="{{action('ToDoListController@edit', $todolist['id'])}}" class="btn btn-warning">Edit</a></td>
-            <td>
-              <form action="{{action('ToDoListController@destroy', $todolist['id'])}}" method="post">
-                @csrf
-                <input name="_method" type="hidden" value="DELETE">
-                <button class="btn btn-danger" type="submit">Delete</button>
-              </form>
-            </td>
-          </tr>
+          <table class="listContainer" cellpadding="10">
+            <tr class="listInfo">
+              <th>{{$todolist['title']}}</td>
+            </tr>
+            <tr class="listInfo">
+              <td>{{$todolist['description']}}</td>
+            </tr>
+            @foreach($tasks as $task)
+            @php
+                if($task['list_id'] == $todolist['id'])
+                {
+                  echo "<tr class='listInfo'>";
+                  echo "<td>{$task['title']}</td>";
+                  echo "</tr>";
+                }
+            @endphp
+            @endforeach
+            <tr class="listInfo">
+              <td><a href="{{action('ToDoListController@show', $todolist['id'])}}" class="btn btn-warning">Tasks</a></td>
+              <td><a href="{{action('ToDoListController@edit', $todolist['id'])}}" class="btn btn-warning">Edit</a></td>
+              <td>
+                <form action="{{action('ToDoListController@destroy', $todolist['id'])}}" method="post">
+                  @csrf
+                  <input name="_method" type="hidden" value="DELETE">
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          </table>
         @endforeach
       </tbody>
     </table>
-    <th><a href="{{ route('todolists.create') }}">Add new list</a></th>
   </div>
+  <a id="addList" href="{{ route('todolists.create') }}">Add new list</a>
 @endsection

@@ -19,9 +19,9 @@
             <div class="form-group col-md-4">
               <input type="hidden" class="form-control" name="list_id" value="{{$id}}">
               <label for="Title">Title:</label>
-              <input type="text" class="form-control" name="title">
+              <input type="text" class="form-control" name="title" value="{{ old('title') }}">
               <label for="Duration">Duration:</label>
-              <input type="text" class="form-control" name="duration">
+              <input type="text" class="form-control" name="duration" value="{{ old('duration') }}">
               <label for="Status">Status:</label><br>
               <select name="status">
                 <option value="Completed">Completed</option>

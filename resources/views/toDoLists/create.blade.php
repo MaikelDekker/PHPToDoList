@@ -18,14 +18,14 @@
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="Title">title:</label>
-            <input type="text" class="form-control" name="title">
+            <input type="text" class="form-control" name="title" value="{{ old('title') }}">
           </div>
         </div>
         <div class="row">
           <div class="col-md-4"></div>
             <div class="form-group col-md-4">
               <label for="Description">description:</label>
-              <input type="text" class="form-control" name="description">
+              <input type="text" class="form-control" name="description" value="{{ old('description') }}">
             </div>
           </div>
         <div class="row">

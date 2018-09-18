@@ -9,7 +9,8 @@ class ToDoListController extends Controller
     public function index()
     {
         $todolists=\App\ToDoList::all();
-        return view('toDoLists.index',compact('todolists'));
+        $tasks=\App\Task::all();
+        return view('toDoLists.index',compact('todolists', 'tasks'));
     }
     public function create()
     {
@@ -56,7 +57,6 @@ class ToDoListController extends Controller
     {
         $todolist = \App\ToDoList::find($id);
         $tasks = \App\Task::where('list_id', $id);
-
         $tasks->delete();
         $todolist->delete();
         return redirect()->route('todolists.index');
